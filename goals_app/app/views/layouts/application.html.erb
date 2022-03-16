@@ -11,14 +11,16 @@
 
   <body>
   <h1>GOALING APP</h1>
-  <% if logged_in? %>
+  <% if !logged_in? %>
   <a href="<%= new_user_url %>">Sign Up</a>
   <p>or</p>
   <a href="<%= new_session_url %>">Log In</a>
   <% else %>
     <p>Welcome <%= current_user.username %></p>
-    <form action="<%= user_url(current_user) %>" method = "POST">
-      <input type="hidden" >
+    <form action="<%= session_url %>" method = "POST">
+      <%= auth_token %>
+      <input type="hidden" name = "_method" value = "delete">
+      <input type="submit" value="Log out">
     </form>
   <% end %>
     <%= yield %>  
